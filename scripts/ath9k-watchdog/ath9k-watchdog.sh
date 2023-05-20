@@ -29,15 +29,13 @@ LOG_MAX_LINES="1000"
 # -----------------------------------------------------
 # -------------- START OF FUNCTION BLOCK --------------
 # -----------------------------------------------------
-logAdd ()
-{
-	TMP_DATETIME="$(date '+%Y-%m-%d [%H-%M-%S]')"
-	TMP_LOGSTREAM="$(tail -n ${LOG_MAX_LINES} ${LOGFILE} 2>/dev/null)"
-	echo "${TMP_LOGSTREAM}" > "$LOGFILE"
-	echo "${TMP_DATETIME} $*" | tee -a "${LOGFILE}"
-	return
+logAdd ()                                              
+{                                                      
+	TMP_DATETIME="$(date '+%Y-%m-%d [%H-%M-%S]')"  
+	echo "${TMP_DATETIME} $*"                      
+	logger -p info -t ath9k-watchdog "$*"          
+	return                                         
 }
-
 
 serviceMain ()
 {
